@@ -10,7 +10,7 @@ services:
     #  context: .
     #  dockerfile: Dockerfile-weblogic12213
 
-    image: weblogic12212_weblogic12213:latest
+    image: weblogic12213:latest
 
     networks:
       local:
