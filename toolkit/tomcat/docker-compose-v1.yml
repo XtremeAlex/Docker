@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  tomcat_one:
+    container_name: tomcat_one
+    #restart: on-failure
+    #restart: always
+    image: tomcat:8.5
+    environment:
+      - TOMCAT_USERNAME=admin
+      - TOMCAT_PASSWORD=admin
+      - CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -XX:+UseG1GC -Xms5120M -Xmx5120M"
+
+    networks:
+      - eproc
+    ports:
+      - 8081:8080
+      - 8009:8009
+      - 8443:8443
+    volumes:
+      - /opt/docker/builds/BE/tomcat/webapps/:/usr/local/tomcat/webapps/
+
+      - /opt/docker/builds/BE/tomcat/nodo1/conf/server.xml:/usr/local/tomcat/conf/server.xml
+      - /opt/docker/builds/BE/tomcat/nodo1/conf/context.xml:/usr/local/tomcat/conf/context.xml
+
+      - /opt/docker/volumes/server_logs:/usr/local/tomcat/logs
+
+      - /opt/docker/volumes/application_configurations/:/usr/local/application_configurations/
+      - /opt/docker/volumes/application_logs/:/usr/local/application_logs/
+
+  nginx:
+    container_name: nginx_fe
+    restart: always
+    image: nginx:1.19
+
+    networks:
+      - eproc
+    ports:
+      - 8080:80
+      - 443:443
+
+    #extra_hosts:
+    # - tomcat_one:IP
+
+    links:
+        #(CONTAINER:ALIAS)
+      - tomcat_one
+
+    depends_on:
+      - tomcat_one
+
+    volumes:
+      - /opt/docker/toolkit/volumes/nginx/conf/default.conf:/etc/nginx/default.conf
+      - /opt/docker/toolkit/volumes/nginx/logs/:/var/log/nginx
+      - /opt/docker/toolkit/volumes/nginx/www/:/usr/share/nginx/www/
+      - /opt/docker/toolkit/volumes/nginx/html/:/usr/share/nginx/html/
+
+    command: bash "apt-get update && apt-get install -y vim && cat etc/hosts"
+
+networks:
+  eproc:
+    #driver: custom-driver-1
+    driver: bridge

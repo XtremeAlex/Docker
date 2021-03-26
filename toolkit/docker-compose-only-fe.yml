@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx-fe
+    #restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+
+    networks:
+      local:
+         ipv4_address: 172.20.0.2
+
+    ports:
+      - 80:80
+      - 443:443
+
+    extra_hosts:
+     - srv.tomcat.1:172.20.0.3
+     - srv.tomcat.2:172.20.0.4
+     - srv.weblogic.1:172.20.0.5
+     - srv.oracledb11:172.20.0.6
+     - srv.sonar:172.20.0.7
+
+     - tail.app1:172.20.0.10
+     - tail.app2:172.20.0.11
+
+     - tail.docker:172.20.0.20
+     - tail.srv.tomcat.1:172.20.0.21
+     - tail.srv.tomcat.2:172.20.0.22
+     - tail.srv.weblogic.1:172.20.0.22
+
+     - tail.nginx.info:172.20.0.30
+     - tail.nginx.error:172.20.0.31
+
+    volumes:
+      - /opt/docker/toolkit/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/docker/toolkit/nginx/logs/:/var/log/nginx
+      - /opt/docker/toolkit/nginx/www/:/usr/share/nginx/www/
+      - /opt/docker/toolkit/nginx/html/:/usr/share/nginx/html/
+
+    environment:
+      - NGINX_HTTP_PORT_NUMBER=80
+      - NGINX_HTTPS_PORT_NUMBER=443
+
+
+networks:
+  local:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
