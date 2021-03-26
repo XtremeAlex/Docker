@@ -7,8 +7,6 @@ MAINTAINER Alexandru Andrei Dabija
 #Add Certificato
 COPY weblogic12/certificato/* /u01/oracle/user_projects/domains/base_domain/security/
 
-#COPY weblogic12/base_domain/* /u01/oracle/user_projects/domains/base_domain/
-
 COPY weblogic12/base_domain/bin* /u01/oracle/user_projects/domains/base_domain/bin/
 
 USER root
