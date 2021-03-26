@@ -1,0 +1,28 @@
+FROM nginx:1.19.6
+
+#RUN rm /etc/nginx/conf.d/*
+#COPY /opt/docker/toolkit/nginx/conf/default.conf /etc/nginx/conf.d/
+
+# author
+MAINTAINER Alexandru Andrei Dabija <a.dabija@alamviva.it>>
+
+COPY /nginx/banner banner
+
+#Install dependencies
+#RUN cat banner && \
+#apt-get update && \
+#apt-get --assume-yes install vim && \
+#apt-get --assume-yes install unzip && \
+#apt-get --assume-yes install curl && \
+#apt-get --assume-yes install iputils-ping && \
+#apt-get --assume-yes install openssl
+
+RUN openssl req -new -x509 -nodes -days 365 -subj "/C=IT/ST=RM/O=Company, Inc./CN=developer.com" -addext "subjectAltName=DNS:developer.com" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt && \
+cat /etc/ssl/certs/nginx-selfsigned.crt && \
+cat /etc/ssl/private/nginx-selfsigned.key
+
+#RUN useradd -ms /bin/bash jonsenna && chmod -R 777 /var/cache/nginx && chmod -R 777 /etc/nginx
+#USER jonsenna
+#WORKDIR /usr/local/jonsenna
+
+CMD ["nginx", "-g", "daemon off;"]

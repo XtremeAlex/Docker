@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+   <!--
+      <Resource 
+
+             global="jdbc.YORJDBC"
+             auth="Container"
+             type="javax.sql.DataSource"
+             driverClassName="oracle.jdbc.driver.OracleDriver"
+
+             initialSize="0"
+             maxIdle="20"
+			       minIdle="0"
+
+             url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+             username="admin"
+             password="admin!"
+             name="jdbc.YORJDBC"
+      />
+
+
+    <ResourceLink global="APP1_CONF_PATH" name="APP1_CONF_PATH" type="java.io.File"/>
+   	<ResourceLink global="APP2_CONF_PATH" name="APP2_CONF_PATH" type="java.io.File"/>
+
+    <ResourceLink global="ENVIRONMENT_PROP_PATH" name="ENVIRONMENT_PROP_PATH" type="java.io.File"/>
+    <ResourceLink global="LOGS_PATH" name="LOGS_PATH" type="java.io.File"/>
+
+    -->
+</Context>

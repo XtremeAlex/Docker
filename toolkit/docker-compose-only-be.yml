@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  tomcat1:
+    container_name: tomcat-be
+    #restart: on-failure
+    #restart: always
+
+    build:
+      context: .
+      dockerfile: Dockerfile-tomcat
+
+    networks:
+      local:
+         ipv4_address: 172.20.0.3
+
+    ports:
+      - 8081:8080
+      - 8009:8009
+
+    extra_hosts:
+     - oracle.external:127.0.0.1
+
+    volumes:
+      - /opt/docker/toolkit/tomcat/webapps/:/usr/local/tomcat/webapps/
+
+      - /opt/docker/toolkit/tomcat/nodo1/conf/server.xml:/usr/local/tomcat/conf/server.xml
+      - /opt/docker/toolkit/tomcat/nodo1/conf/context.xml:/usr/local/tomcat/conf/context.xml
+      - /opt/docker/toolkit/tomcat/nodo1/conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - /opt/docker/toolkit/tomcat/lib/:/usr/local/tomcat/lib/
+
+      - /opt/docker/toolkit/tomcat/nodo1/conf/Catalina/:/usr/local/tomcat/conf/Catalina/
+
+      - /opt/docker/toolkit/volumes/server_logs/:/usr/local/tomcat/logs/
+
+      - /opt/docker/toolkit/volumes/application_configurations/:/opt/application_configurations/
+      - /opt/docker/toolkit/volumes/application_logs/:/opt/application_logs/
+    environment:
+      - CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -XX:+UseG1GC -Xms1024M -Xmx5120M"
+
+networks:
+  local:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

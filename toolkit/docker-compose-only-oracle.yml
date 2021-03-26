@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  oracle-db-11:
+    container_name: oracle-db-11
+    #restart: on-failure
+    #restart: always
+
+    build:
+      context: .
+      dockerfile: Dockerfile-oracle
+
+    networks:
+      local:
+         ipv4_address: 172.20.0.6
+
+    ports:
+      - 1521:1521
+      - 5500:5500
+
+    volumes:
+      - /opt/docker/toolkit/volumes/oracle11/condivisa/:/opt/oracle/condivisa/
+      - /opt/docker/toolkit/volumes/oracle11/dpdump/:/u01/app/oracle/admin/XE/dpdump/
+
+networks:
+  local:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

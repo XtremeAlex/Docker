@@ -1,0 +1,20 @@
+FROM tomcat:8.5
+
+# author
+MAINTAINER Alexandru Andrei Dabija <a.dabija@alamviva.it>>
+
+COPY /tomcat/banner banner
+
+#Install dependencies
+RUN cat banner && \
+apt-get update && \
+apt-get --assume-yes install vim && \
+apt-get --assume-yes install unzip && \
+apt-get --assume-yes install curl && \
+apt-get --assume-yes install iputils-ping && \
+useradd -ms /bin/bash tomcat
+
+USER tomcat
+
+WORKDIR /usr/local/tomcat/bin
+CMD ["catalina.sh", "run"]
