@@ -4,7 +4,7 @@ FROM nginx:1.19.6
 #COPY /opt/docker/toolkit/nginx/conf/default.conf /etc/nginx/conf.d/
 
 # author
-MAINTAINER Alexandru Andrei Dabija <a.dabija@alamviva.it>>
+MAINTAINER Alexandru Andrei Dabija <>>
 
 COPY /nginx/banner banner
 
