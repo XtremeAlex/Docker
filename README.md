@@ -19,6 +19,10 @@ sviluppo (es. `admin`, `ORACLE_HOST_IP` come placeholder). Sostituiscili con
 valori reali e sicuri prima di qualsiasi uso non locale. Non committare mai IP,
 host o credenziali di produzione.
 
+## License
+
+Distribuito sotto licenza [Creative Commons Attribution 4.0 (CC BY 4.0)](LICENSE). Puoi condividere e adattare il materiale, anche commercialmente, a condizione di citare l'autore.
+
 ## Contatti
 
 Andrei Alexandru Dabija — [LinkedIn](https://www.linkedin.com/in/andrei-alexandru-dabija/) — [github.com/XtremeAlex](https://github.com/XtremeAlex)
