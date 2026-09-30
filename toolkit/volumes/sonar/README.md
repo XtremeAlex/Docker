@@ -1,7 +1,10 @@
-toolkit/volumes/sonar/sonarqube_bundled-plugins
+# Volumi SonarQube
 
-toolkit/volumes/sonar/sonarqube_conf
+Qui finiscono i dati persistenti del container SonarQube, divisi in:
 
-toolkit/volumes/sonar/sonarqube_data
+- `sonarqube_bundled-plugins`: plugin inclusi
+- `sonarqube_conf`: configurazione
+- `sonarqube_data`: dati
+- `sonarqube_extensions`: estensioni e plugin aggiuntivi
 
-toolkit/volumes/sonar/sonarqube_extensions
+Percorso completo: `toolkit/volumes/sonar/<cartella>`.
